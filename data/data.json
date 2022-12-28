@@ -1,0 +1,86 @@
+{
+  "dataInfo": [
+    {
+      "name": "测试1",
+      "sex": "男",
+      "major": "计算机",
+      "account": 202183290001,
+      "password": 12345678,
+      "role": 0
+    },
+    {
+      "name": "测试2",
+      "sex": "女",
+      "major": "计算机",
+      "account": 202183290002,
+      "password": 12345679,
+      "role": 0
+    },
+    {
+      "name": "测试3",
+      "sex": "男",
+      "major": "计算机",
+      "account": 202183290003,
+      "password": 12345671,
+      "role": 1,
+      "math": 70,
+      "english": 55,
+      "computer": 61
+    },
+    {
+      "name": "测试4",
+      "sex": "男",
+      "major": "计算机",
+      "account": 202183290004,
+      "password": 12345631,
+      "role": 1,
+      "math": 51,
+      "english": 59,
+      "computer": 46
+    },
+    {
+      "name": "测试5",
+      "sex": "男",
+      "major": "计算机",
+      "account": 202183290005,
+      "password": 12345691,
+      "role": 1,
+      "math": 99,
+      "english": 100,
+      "computer": 99
+    },
+    {
+      "name": "测试6",
+      "sex": "女",
+      "major": "计算机",
+      "account": 202183290006,
+      "password": 12345678,
+      "role": 1,
+      "math": 100,
+      "english": 100,
+      "computer": 100
+    },
+    {
+      "name": "测试7",
+      "sex": "男",
+      "major": "计算机",
+      "account": 202183290007,
+      "password": 12345678,
+      "role": 1,
+      "math": 31,
+      "english": 65,
+      "computer": 57
+    },
+    {
+      "name": "测试8",
+      "sex": "男",
+      "major": "计算机",
+      "account": 202183290008,
+      "password": 12345678,
+      "role": 1,
+      "math": 85,
+      "english": 79,
+      "computer": 60
+    }
+  ]
+}

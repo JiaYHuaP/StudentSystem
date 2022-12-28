@@ -1,6 +1,4 @@
-
 #include "../include/DataSystem.h"
-
 
 int DataSystem::loadFromJson(string path) {
     // load from json
@@ -9,11 +7,18 @@ int DataSystem::loadFromJson(string path) {
     ifstream ifs;
     ifs.open(path);
     if (!jsonReader.parse(ifs, jsonRoot)) {
-        return -1;
+        return 0;
     }
     ifs.close();
     // save as student
-
+    for (auto item: jsonRoot) {
+        for (auto user: item) {
+            Student s(user);
+            if(s.getRole())
+            students.push_back(s);
+        }
+    }
+    return 1;
 }
 
 void DataSystem::addStudent(Student &student) {
@@ -23,7 +28,6 @@ void DataSystem::addStudent(Student &student) {
 void DataSystem::deleteStudentByIndex(int index) {
     students.erase(students.begin() + index);
 }
-
 
 unsigned long long DataSystem::getStudentSize() {
     return students.size();
@@ -38,16 +42,15 @@ void DataSystem::changeStudentByIndex(int index, Student &s) {
 }
 
 Student DataSystem::getStudentByIndex(int index) {
-    // Ë÷Òı»ñÈ¡ÖµÒªÅĞ¿Õ
+    // ç´¢å¼•è·å–å€¼è¦åˆ¤ç©º
     if (ifExistByIndex(index))
         return students[index];
-    // todo:ÕâÁĞÃ»ÓĞ·â×° Result Àà£¬µ¼ÖÂÃ»ÓĞºÏÊÊµÄ·µ»ØÀàĞÍ
     return {};
 }
 
 Student DataSystem::getStudentByName(const string &name) {
     auto numptr = find_if(students.begin(), students.end(), [&name](Student &s) {
-        return s.getName().compare(name);
+        return !s.getName().compare(name);
     });
     if (numptr != students.end())
         return *numptr;
@@ -56,30 +59,29 @@ Student DataSystem::getStudentByName(const string &name) {
 }
 
 void DataSystem::showStudent(const Student &s) {
-    cout << "ĞÕÃû£º" << s.getName() << endl;
-    cout << "ĞÔ±ğ£º" << s.getSex() << endl;
-    cout << "×¨Òµ£º" << s.getMajor() << endl;
-    cout << "±àºÅ£º" << s.getAccount() << endl;
-    cout << "ÊıÑ§³É¼¨£º" << s.getMath() << endl;
-    cout << "¼ÆËã»ú³É¼¨£º" << s.getComputer() << endl;
-    cout << "Ó¢Óï³É¼¨£º" << s.getEnglish() << endl;
+    cout << "å§“åï¼š" << s.getName() << endl;
+    cout << "æ€§åˆ«ï¼š" << s.getSex() << endl;
+    cout << "ä¸“ä¸šï¼š" << s.getMajor() << endl;
+    cout << "ç¼–å·ï¼š" << s.getAccount() << endl;
+    cout << "æ•°å­¦æˆç»©ï¼š" << s.getMath() << endl;
+    cout << "è®¡ç®—æœºæˆç»©ï¼š" << s.getComputer() << endl;
+    cout << "è‹±è¯­æˆç»©ï¼š" << s.getEnglish() << endl;
 }
 
 void DataSystem::sortStudentsBySum() {
     sort(students.begin(), students.end(), [](const Student &a, const Student &b) {
-        return a.getSum() < b.getSum();
+        return a.getSum() > b.getSum();
     });
 }
 
 void DataSystem::showStudentsBySum() {
     int i = 1;
-    cout << "ĞÕÃû\t\t\t" << "ÅÅÃû\t" << "×Ü³É¼¨\t" << "Ó¢Óï\t" << "ÊıÑ§\t" << "¼ÆËã»ú\t" << endl;
+    cout << "å§“å\t\t\t" << "æ’å\t" << "æ€»æˆç»©\t" << "è‹±è¯­\t" << "æ•°å­¦\t" << "è®¡ç®—æœº\t" << endl;
     for (const Student &student: students) {
-        cout << student.getName() << "\t\t\t" << i++ << "\t" << student.getSum() << "\t" << student.getEnglish() << "\t"
+        cout << student.getName() << "\t\t\t" << i++ << "\t" << student.getSum() << "\t\t" << student.getEnglish() << "\t"
              << student.getMath() << "\t" << student.getComputer() << "\t" << endl;
     }
 }
-
 
 double DataSystem::getSumForMath() {
     double sum = 0;
@@ -143,10 +145,79 @@ double DataSystem::getAPassingGradeForEnglish() {
 
 Student DataSystem::getStudentByAccount(string account) {
     auto numptr = find_if(students.begin(), students.end(), [&account](Student &s) {
-        return s.getAccount().compare(account);
+        return !s.getAccount().compare(account);
     });
     if (numptr != students.end())
         return *numptr;
     else
         return {};
 }
+
+nGrade DataSystem::getMathGrade() {
+    nGrade ngrade={0,0,0,0,0};
+    for (auto &student: students) {
+        ngrade.nA+=student.getMath()<60;
+        ngrade.nB+=student.getMath()>=60&&student.getMath()<=69;
+        ngrade.nC+=student.getMath()>=70&&student.getMath()<=79;
+        ngrade.nD+=student.getMath()>=80&&student.getMath()<=89;
+        ngrade.nE+=student.getMath()>=90&&student.getMath()<=100;
+    }
+    return ngrade;
+}
+
+nGrade DataSystem::getComputerGrade() {
+    nGrade ngrade={0,0,0,0,0};
+    for (auto &student: students) {
+        ngrade.nA+=student.getComputer()<60;
+        ngrade.nB+=student.getComputer()>=60&&student.getComputer()<=69;
+        ngrade.nC+=student.getComputer()>=70&&student.getComputer()<=79;
+        ngrade.nD+=student.getComputer()>=80&&student.getComputer()<=89;
+        ngrade.nE+=student.getComputer()>=90&&student.getComputer()<=100;
+    }
+    return ngrade;
+}
+
+nGrade DataSystem::getEnglishGrade() {
+    nGrade ngrade={0,0,0,0,0};
+    for (auto &student: students) {
+        ngrade.nA+=student.getEnglish()<60;
+        ngrade.nB+=student.getEnglish()>=60&&student.getEnglish()<=69;
+        ngrade.nC+=student.getEnglish()>=70&&student.getEnglish()<=79;
+        ngrade.nD+=student.getEnglish()>=80&&student.getEnglish()<=89;
+        ngrade.nE+=student.getEnglish()>=90&&student.getEnglish()<=100;
+    }
+    return ngrade;
+}
+
+void DataSystem::drawChart(nGrade ngrade) {
+    cout<<"0~59\t";
+    for(int i=0;i<ngrade.nA;i++)
+        cout<<"*";
+    cout<<endl;
+    cout<<"60~69\t";
+    for(int i=0;i<ngrade.nB;i++)
+        cout<<"*";
+    cout<<endl;
+    cout<<"70~79\t";
+    for(int i=0;i<ngrade.nC;i++)
+        cout<<"*";
+    cout<<endl;
+    cout<<"80~89\t";
+    for(int i=0;i<ngrade.nD;i++)
+        cout<<"*";
+    cout<<endl;
+    cout<<"90~100\t";
+    for(int i=0;i<ngrade.nE;i++)
+        cout<<"*";
+    cout<<endl;
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,4 @@
 #pragma once
-
 #include <string>
 using namespace std;
 
@@ -9,23 +8,14 @@ private:
     string sex;
     string account;
     string password;
-    string role;
+    int role;
 public:
+    Role(const string &name, const string &sex, const string &account, const string &password, int role);
+    Role(const string &account, const string &password, int role);
     Role();
 
-public:
-    Role(const string &account, const string &password, const string &role);
+    Role(const string &name, const string &sex);
 
-    const string &getRole() const;
-
-    void setRole(const string &role);
-
-public:
-    void setAccount(const string &account);
-
-    void setPassword(const string &password);
-
-public:
     const string &getName() const;
 
     void setName(const string &name);
@@ -36,8 +26,13 @@ public:
 
     const string &getAccount() const;
 
+    void setAccount(const string &account);
+
     const string &getPassword() const;
 
+    void setPassword(const string &password);
 
+    int getRole() const;
 
+    void setRole(int role);
 };

@@ -1,5 +1,3 @@
-
-
 #ifndef DEMO_DATASYSTEM_H
 #define DEMO_DATASYSTEM_H
 #include <fstream>
@@ -8,6 +6,9 @@
 #include <algorithm>
 #include <iostream>
 #include "./json/json.h"
+struct nGrade{
+    int nA,nB,nC,nD,nE;
+};
 class DataSystem {
     vector<Student> students{};
 public:
@@ -31,12 +32,11 @@ public:
     double getAPassingGradeForMath();
     double getAPassingGradeForComputer();
     double getAPassingGradeForEnglish();
-
-
+    nGrade getMathGrade();
+    nGrade getComputerGrade();
+    nGrade getEnglishGrade();
+    void drawChart(nGrade);
     bool ifExistByIndex(int);
-
-
 };
-
 
 #endif //DEMO_DATASYSTEM_H

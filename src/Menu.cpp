@@ -1,8 +1,6 @@
-
-
 #include <iostream>
 #include "../include/Menu.h"
-
+#include<iomanip>
 void Menu::managerMainMenu() {
     int point;
     while (true)
@@ -25,6 +23,9 @@ void Menu::managerMainMenu() {
         system("cls");//清屏  clear screen
         switch (point)
         {
+        case 1:
+            dataSystem.showStudentsBySum();
+            break;
         case 2:
             addStudentMenu();
             break;
@@ -43,8 +44,8 @@ void Menu::managerMainMenu() {
         case 7:
             subjectMenu();
             break;
-        case 1:
-            dataSystem.showStudentsBySum();
+        case 8:
+            chartMenu();
             break;
         case 0:
             exit(0);
@@ -104,11 +105,9 @@ void Menu::addStudentMenu() {
             cin >> english;
         }
         // 2. 用对象的构造函数接收输入
-        Student s(name, sex, major, num, math, computer, english);
+        Student s(name, sex,major, math, computer, english);
         // 3. 用数据管理接受
         dataSystem.addStudent(s);
-        // todo: 为项目添加 Result 类显示操作结果
-        system("pause");
     }
 }
 
@@ -177,14 +176,13 @@ void Menu::changeStudentMenu() {
     if (option != 0)
         dataSystem.changeStudentByIndex(index, s);
     cout << "该学生信息为：" << endl;
-    cout << "姓名\t\t\t" << "性别\t" <<"专业\t" <<"编号\t" << "英语成绩\t" << "数学成绩\t" << "计算机成绩\t" << endl;
-    cout << s.getName() << "\t\t\t" << s.getSex() << "\t" << s.getMajor() << "\t" << s.getAccount() << "\t" << s.getEnglish() << "\t" << s.getMath() << "\t" << s.getComputer() << "\t" << endl;
-    system("pause");
+    cout << "姓名\t\t\t" << "性别\t" <<"专业\t\t\t" <<"编号\t\t\t" << "英语成绩\t" << "数学成绩\t" << "计算机成绩\t" << endl;
+    cout << s.getName() << "\t\t" << s.getSex() << "\t" << s.getMajor() << "\t" << s.getAccount() << "\t" << s.getEnglish() << "\t\t" << s.getMath() << "\t\t" << s.getComputer() << "\t\t" << endl;
 }
 
 void Menu::deleteStudentMenu() {
     int index;
-    cout << "请输入你要删除学生的序号：";
+    cout << "请输入你要删除学生的学号：";
     cin >> index;
     while (!dataSystem.ifExistByIndex(index))
     {
@@ -193,31 +191,38 @@ void Menu::deleteStudentMenu() {
     }
     dataSystem.deleteStudentByIndex(index);
     cout << "删除成功！" << endl;
-    system("pause");
 }
 
 void Menu::searchStudentMenu() {
     int t;
     string name;
-    int num;
-    cout << "请输入想查找学生的姓名（1）或编号（2）：";
+    string num;
+    cout << "请输入想查找学生的姓名（1）或学号（2）：";
     cin >> t;
     while (t != 1 && t != 2)
     {
         cout << "输入错误，请重新输入：";
-        cout << "请输入想查找学生的姓名（1）或编号（2）：";
+        cout << "请输入想查找学生的姓名（1）或学号（2）：";
         cin >> t;
     }
     if (t == 1) {
         cout << "请输入学生姓名：";
         cin >> name;
+        Student s=dataSystem.getStudentByName(name);
+        if(s.getName()=="")
+            cout<<"该学生不存在"<<endl;
+        else
         DataSystem::showStudent(dataSystem.getStudentByName(name));
 
     }
     else if (t == 2) {
-        cout << "请输入学生编号：";
+        cout << "请输入学生学号：";
         cin >> num;
-        DataSystem::showStudent(dataSystem.getStudentByIndex(num));
+        Student s=dataSystem.getStudentByAccount(num);
+        if(s.getName()=="")
+            cout<<"该学生不存在"<<endl;
+        else
+            DataSystem::showStudent(dataSystem.getStudentByAccount(num));
     }
 }
 
@@ -227,9 +232,18 @@ void Menu::sortStudentMenu() {
 }
 
 void Menu::subjectMenu() {
-    cout << "数学平均成绩为：" << dataSystem.getAveForMath() << "\t" << "及格率为：" << dataSystem.getAPassingGradeForMath() <<"%"<< endl;
-    cout << "英语平均成绩为：" << dataSystem.getAveForEnglish() << "\t" << "及格率为：" << dataSystem.getAPassingGradeForEnglish() << "%" << endl;
-    cout << "计算机平均成绩为：" << dataSystem.getAveForComputer() << "\t" << "及格率为：" << dataSystem.getAPassingGradeForComputer() << "%" << endl;
+    cout << "数学平均成绩为：" <<setprecision (4)<< dataSystem.getAveForMath() << "\t\t\t" << "及格率为：" <<setprecision (4)<< dataSystem.getAPassingGradeForMath() <<"%"<< endl;
+    cout << "英语平均成绩为： " <<setprecision (4) << dataSystem.getAveForEnglish()<< "\t\t\t" << "及格率为："<<setprecision (4) << dataSystem.getAPassingGradeForEnglish()<< "%" << endl;
+    cout << "计算机平均成绩为：" <<setprecision (4)<< dataSystem.getAveForComputer() << "\t\t\t" << "及格率为："<<setprecision (4) << dataSystem.getAPassingGradeForComputer()<< "%" << endl;
+}
+
+void Menu::chartMenu() {
+    cout<<"数学成绩柱状图："<<endl;
+    dataSystem.drawChart(dataSystem.getMathGrade());
+    cout<<"计算机成绩柱状图："<<endl;
+    dataSystem.drawChart(dataSystem.getComputerGrade());
+    cout<<"英语成绩柱状图："<<endl;
+    dataSystem.drawChart(dataSystem.getEnglishGrade());
 }
 
 void Menu::studentMainMenu() {
@@ -260,43 +274,6 @@ void Menu::studentMainMenu() {
     }
 }
 
-void Menu::mainMenu() {
-    int point;
-    while (true)
-    {
-        system("cls");//清屏  clear screen
-        cout << "-----------高校学籍管理系统------------" << endl;
-        cout << "1、学生" << endl;
-        cout << "2、管理员" << endl;
-        cout << "0、退出" << endl;
-        cout << "-------------------------------------" << endl;
-        cout << "请选择身份：（1.学生 2.管理员）" << endl;
-        cin >> point;
-        cout << "------------------------------------" << endl;
-        system("cls");//清屏  clear screen
-        switch (point)
-        {
-            case 1:
-                studentMainMenu();
-                break;
-            case 2:
-                managerMainMenu();
-                break;
-            case 0:
-                exit(0);
-            default:
-                cout << "输入错误，请重新输入：";
-                break;
-        }
-        drawDelimiter();
-        system("pause");
-    }
-}
-
-int Menu::loadUserData(string path) {
-    return userSystem.loadFromJson(path);
-}
-
 void Menu::loginMenu() {
     string account,password;
     system("cls");//清屏  clear screen
@@ -307,19 +284,22 @@ void Menu::loginMenu() {
     cin >> password;
     cout << "------------------------------------" << endl;
     system("cls");//清屏  clear screen
-    string res = userSystem.Login(account,password);
-    if(!res.compare("0")){
+    int res = userSystem.Login(account,password);
+    if(res==0){
         Menu::managerMainMenu();
     }
-    else if(!res.compare("1")){
+    else if(res==1){
         Menu::studentMainMenu();
     }
     else{
         cout<<"账号或密码有误"<<endl;
         drawDelimiter();
     }
-
-
-
 }
+
+int Menu::loadFromJson(string path) {
+    return dataSystem.loadFromJson(path) && userSystem.loadFromJson(path);
+}
+
+
 

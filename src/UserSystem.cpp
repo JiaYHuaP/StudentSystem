@@ -1,9 +1,4 @@
-//
-// Created by 30369 on 2022/12/21.
-//
-
 #include "../include/UserSystem.h"
-
 int UserSystem::loadFromJson(string path) {
     // load from json
     Json::Value jsonRoot;
@@ -11,7 +6,7 @@ int UserSystem::loadFromJson(string path) {
     ifstream ifs;
     ifs.open(path);
     if (!jsonReader.parse(ifs, jsonRoot)) {
-        return -1;
+        return 0;
     }
     ifs.close();
     // save as roles
@@ -19,23 +14,21 @@ int UserSystem::loadFromJson(string path) {
         for (auto user: item) {
             Role r(user["account"].asString(),
                    user["password"].asString(),
-                   user["role"].asString());
+                   user["role"].asInt());
             roles.push_back(r);
         }
     }
-    for (auto r: roles) {
-        cout << r.getAccount() + " " + r.getPassword() + " " + r.getRole() << endl;
-    }
+    return 1;
 }
 
-string UserSystem::Login(string account, string password) {
+int UserSystem::Login(string account, string password) {
     for(auto r:roles){
         if(r.getAccount()==account && r.getPassword()==password){
             currentRole = r;
             return r.getRole();
         }
     }
-    return "no";
+    return -1;
 }
 
 const Role &UserSystem::getCurrentRole() const {

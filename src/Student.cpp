@@ -37,19 +37,22 @@ void Student::setEnglish(double english) {
     Student::english = english;
 }
 
-
-
-
 double Student::getSum() const {
     return getMath() + getEnglish() + getComputer();
 }
 
-Student::Student(const string &account, const string &password, const string &role, const string &major, double math,
+Student::Student(const string &account, const string &password, const int &role, const string &major, double math,
                  double computer, double english) : Role(account, password, role), major(major), math(math),
                                                     computer(computer), english(english) {}
 
-Student::Student(const string &account, const string &password, const string &role) : Role(account, password, role) {}
+Student::Student(const string &account, const string &password, const int &role) : Role(account, password, role) {}
 
 Student::Student() {}
+
+Student::Student(Json::Value userJson) :Role( userJson["name"].asString(),userJson["sex"].asString(),userJson["account"].asString(), userJson["password"].asString(), userJson["role"].asInt()),major(userJson["major"].asString()),
+                                              computer(userJson["computer"].asDouble()),math(userJson["math"].asDouble()),english(userJson["english"].asDouble()){}
+
+Student::Student(const string &name, const string &sex, const string &major, double math, double computer,
+                 double english): Role(name,sex),major(major), math(math),computer(computer), english(english){}
 
 
