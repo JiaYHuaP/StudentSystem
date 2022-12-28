@@ -73,7 +73,7 @@ build CMakeFiles\StudentSystem.dir\src\Manager.cpp.obj: CXX_COMPILER__StudentSys
   TARGET_COMPILE_PDB = CMakeFiles\StudentSystem.dir\
   TARGET_PDB = StudentSystem.pdb
 
-build CMakeFiles\StudentSystem.dir\src\DataSystem.cpp.obj: CXX_COMPILER__StudentSystem_Debug D$:\Workspace\Cpp\StudentSystem\src\DataSystem.cpp || cmake_object_order_depends_target_StudentSystem
+build CMakeFiles\StudentSystem.dir\src\DataService.cpp.obj: CXX_COMPILER__StudentSystem_Debug D$:\Workspace\Cpp\StudentSystem\src\DataService.cpp || cmake_object_order_depends_target_StudentSystem
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   INCLUDES = -ID:\Workspace\Cpp\StudentSystem\include\json
   OBJECT_DIR = CMakeFiles\StudentSystem.dir
@@ -97,7 +97,7 @@ build CMakeFiles\StudentSystem.dir\src\Role.cpp.obj: CXX_COMPILER__StudentSystem
   TARGET_COMPILE_PDB = CMakeFiles\StudentSystem.dir\
   TARGET_PDB = StudentSystem.pdb
 
-build CMakeFiles\StudentSystem.dir\src\UserSystem.cpp.obj: CXX_COMPILER__StudentSystem_Debug D$:\Workspace\Cpp\StudentSystem\src\UserSystem.cpp || cmake_object_order_depends_target_StudentSystem
+build CMakeFiles\StudentSystem.dir\src\UserService.cpp.obj: CXX_COMPILER__StudentSystem_Debug D$:\Workspace\Cpp\StudentSystem\src\UserService.cpp || cmake_object_order_depends_target_StudentSystem
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   INCLUDES = -ID:\Workspace\Cpp\StudentSystem\include\json
   OBJECT_DIR = CMakeFiles\StudentSystem.dir
@@ -113,7 +113,7 @@ build CMakeFiles\StudentSystem.dir\src\UserSystem.cpp.obj: CXX_COMPILER__Student
 #############################################
 # Link the executable StudentSystem.exe
 
-build StudentSystem.exe: CXX_EXECUTABLE_LINKER__StudentSystem_Debug CMakeFiles\StudentSystem.dir\main.cpp.obj CMakeFiles\StudentSystem.dir\src\Student.cpp.obj CMakeFiles\StudentSystem.dir\src\Manager.cpp.obj CMakeFiles\StudentSystem.dir\src\DataSystem.cpp.obj CMakeFiles\StudentSystem.dir\src\Menu.cpp.obj CMakeFiles\StudentSystem.dir\src\Role.cpp.obj CMakeFiles\StudentSystem.dir\src\UserSystem.cpp.obj | D$:\Workspace\Cpp\StudentSystem\lib\libjsoncpp.a
+build StudentSystem.exe: CXX_EXECUTABLE_LINKER__StudentSystem_Debug CMakeFiles\StudentSystem.dir\main.cpp.obj CMakeFiles\StudentSystem.dir\src\Student.cpp.obj CMakeFiles\StudentSystem.dir\src\Manager.cpp.obj CMakeFiles\StudentSystem.dir\src\DataService.cpp.obj CMakeFiles\StudentSystem.dir\src\Menu.cpp.obj CMakeFiles\StudentSystem.dir\src\Role.cpp.obj CMakeFiles\StudentSystem.dir\src\UserService.cpp.obj | D$:\Workspace\Cpp\StudentSystem\lib\libjsoncpp.a
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = D:\Workspace\Cpp\StudentSystem\lib\libjsoncpp.a  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

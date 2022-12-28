@@ -7,7 +7,7 @@
 #define STUDENTSYSTEM_USERSYSTEM_H
 #endif //STUDENTSYSTEM_USERSYSTEM_H
 
-class UserSystem{
+class UserService{
     vector<Role> roles{};
     Role currentRole;
 public:

@@ -1,5 +1,5 @@
-#include "../include/UserSystem.h"
-int UserSystem::loadFromJson(string path) {
+#include "../include/UserService.h"
+int UserService::loadFromJson(string path) {
     // load from json
     Json::Value jsonRoot;
     Json::Reader jsonReader;
@@ -21,7 +21,7 @@ int UserSystem::loadFromJson(string path) {
     return 1;
 }
 
-int UserSystem::Login(string account, string password) {
+int UserService::Login(string account, string password) {
     for(auto r:roles){
         if(r.getAccount()==account && r.getPassword()==password){
             currentRole = r;
@@ -31,7 +31,7 @@ int UserSystem::Login(string account, string password) {
     return -1;
 }
 
-const Role &UserSystem::getCurrentRole() const {
+const Role &UserService::getCurrentRole() const {
     return currentRole;
 }
 

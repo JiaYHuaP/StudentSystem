@@ -1,6 +1,6 @@
-#include "../include/DataSystem.h"
+#include "../include/DataService.h"
 
-int DataSystem::loadFromJson(string path) {
+int DataService::loadFromJson(string path) {
     // load from json
     Json::Value jsonRoot;
     Json::Reader jsonReader;
@@ -21,34 +21,34 @@ int DataSystem::loadFromJson(string path) {
     return 1;
 }
 
-void DataSystem::addStudent(Student &student) {
+void DataService::addStudent(Student &student) {
     students.push_back(student);
 }
 
-void DataSystem::deleteStudentByIndex(int index) {
+void DataService::deleteStudentByIndex(int index) {
     students.erase(students.begin() + index);
 }
 
-unsigned long long DataSystem::getStudentSize() {
+unsigned long long DataService::getStudentSize() {
     return students.size();
 }
 
-bool DataSystem::ifExistByIndex(int index) {
+bool DataService::ifExistByIndex(int index) {
     return index < students.size() && index >= 0;
 }
 
-void DataSystem::changeStudentByIndex(int index, Student &s) {
+void DataService::changeStudentByIndex(int index, Student &s) {
     students[index] = s;
 }
 
-Student DataSystem::getStudentByIndex(int index) {
+Student DataService::getStudentByIndex(int index) {
     // 索引获取值要判空
     if (ifExistByIndex(index))
         return students[index];
     return {};
 }
 
-Student DataSystem::getStudentByName(const string &name) {
+Student DataService::getStudentByName(const string &name) {
     auto numptr = find_if(students.begin(), students.end(), [&name](Student &s) {
         return !s.getName().compare(name);
     });
@@ -58,7 +58,7 @@ Student DataSystem::getStudentByName(const string &name) {
         return {};
 }
 
-void DataSystem::showStudent(const Student &s) {
+void DataService::showStudent(const Student &s) {
     cout << "姓名：" << s.getName() << endl;
     cout << "性别：" << s.getSex() << endl;
     cout << "专业：" << s.getMajor() << endl;
@@ -68,13 +68,13 @@ void DataSystem::showStudent(const Student &s) {
     cout << "英语成绩：" << s.getEnglish() << endl;
 }
 
-void DataSystem::sortStudentsBySum() {
+void DataService::sortStudentsBySum() {
     sort(students.begin(), students.end(), [](const Student &a, const Student &b) {
         return a.getSum() > b.getSum();
     });
 }
 
-void DataSystem::showStudentsBySum() {
+void DataService::showStudentsBySum() {
     int i = 1;
     cout << "姓名\t\t\t" << "排名\t" << "总成绩\t" << "英语\t" << "数学\t" << "计算机\t" << endl;
     for (const Student &student: students) {
@@ -83,7 +83,7 @@ void DataSystem::showStudentsBySum() {
     }
 }
 
-double DataSystem::getSumForMath() {
+double DataService::getSumForMath() {
     double sum = 0;
     for (auto &student: students) {
         sum += student.getMath();
@@ -91,7 +91,7 @@ double DataSystem::getSumForMath() {
     return sum;
 }
 
-double DataSystem::getSumForComputer() {
+double DataService::getSumForComputer() {
     double sum = 0;
     for (auto &student: students) {
         sum += student.getComputer();
@@ -99,7 +99,7 @@ double DataSystem::getSumForComputer() {
     return sum;
 }
 
-double DataSystem::getSumForEnglish() {
+double DataService::getSumForEnglish() {
     double sum = 0;
     for (auto &student: students) {
         sum += student.getEnglish();
@@ -107,19 +107,19 @@ double DataSystem::getSumForEnglish() {
     return sum;
 }
 
-double DataSystem::getAveForMath() {
+double DataService::getAveForMath() {
     return getSumForMath() / (double) students.size();
 }
 
-double DataSystem::getAveForComputer() {
+double DataService::getAveForComputer() {
     return getSumForComputer() / (double) students.size();
 }
 
-double DataSystem::getAveForEnglish() {
+double DataService::getAveForEnglish() {
     return getSumForEnglish() / (double) students.size();
 }
 
-double DataSystem::getAPassingGradeForMath() {
+double DataService::getAPassingGradeForMath() {
     double sum = 0;
     for (auto &student: students) {
         sum += student.getMath() >= 60;
@@ -127,7 +127,7 @@ double DataSystem::getAPassingGradeForMath() {
     return sum / (double) students.size() * 100;
 }
 
-double DataSystem::getAPassingGradeForComputer() {
+double DataService::getAPassingGradeForComputer() {
     double sum = 0;
     for (auto &student: students) {
         sum += student.getComputer() >= 60;
@@ -135,7 +135,7 @@ double DataSystem::getAPassingGradeForComputer() {
     return sum / (double) students.size() * 100;
 }
 
-double DataSystem::getAPassingGradeForEnglish() {
+double DataService::getAPassingGradeForEnglish() {
     double sum = 0;
     for (auto &student: students) {
         sum += student.getEnglish() >= 60;
@@ -143,7 +143,7 @@ double DataSystem::getAPassingGradeForEnglish() {
     return sum / (double) students.size() * 100;
 }
 
-Student DataSystem::getStudentByAccount(string account) {
+Student DataService::getStudentByAccount(string account) {
     auto numptr = find_if(students.begin(), students.end(), [&account](Student &s) {
         return !s.getAccount().compare(account);
     });
@@ -153,7 +153,7 @@ Student DataSystem::getStudentByAccount(string account) {
         return {};
 }
 
-nGrade DataSystem::getMathGrade() {
+nGrade DataService::getMathGrade() {
     nGrade ngrade={0,0,0,0,0};
     for (auto &student: students) {
         ngrade.nA+=student.getMath()<60;
@@ -165,7 +165,7 @@ nGrade DataSystem::getMathGrade() {
     return ngrade;
 }
 
-nGrade DataSystem::getComputerGrade() {
+nGrade DataService::getComputerGrade() {
     nGrade ngrade={0,0,0,0,0};
     for (auto &student: students) {
         ngrade.nA+=student.getComputer()<60;
@@ -177,7 +177,7 @@ nGrade DataSystem::getComputerGrade() {
     return ngrade;
 }
 
-nGrade DataSystem::getEnglishGrade() {
+nGrade DataService::getEnglishGrade() {
     nGrade ngrade={0,0,0,0,0};
     for (auto &student: students) {
         ngrade.nA+=student.getEnglish()<60;
@@ -189,7 +189,7 @@ nGrade DataSystem::getEnglishGrade() {
     return ngrade;
 }
 
-void DataSystem::drawChart(nGrade ngrade) {
+void DataService::drawChart(nGrade ngrade) {
     cout<<"0~59\t";
     for(int i=0;i<ngrade.nA;i++)
         cout<<"*";

@@ -1,11 +1,11 @@
 #ifndef DEMO_MENU_H
 #define DEMO_MENU_H
-#include "DataSystem.h"
-#include "UserSystem.h"
+#include "DataService.h"
+#include "UserService.h"
 
 class Menu {
-    DataSystem dataSystem;
-    UserSystem userSystem;
+    DataService dataService;
+    UserService userService;
 public:
     int loadFromJson(string path);
     void loginMenu();

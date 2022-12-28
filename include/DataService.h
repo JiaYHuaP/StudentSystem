@@ -9,7 +9,7 @@
 struct nGrade{
     int nA,nB,nC,nD,nE;
 };
-class DataSystem {
+class DataService {
     vector<Student> students{};
 public:
     int loadFromJson(string);
